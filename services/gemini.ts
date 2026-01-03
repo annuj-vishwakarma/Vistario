@@ -1,7 +1,8 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-// Use Vite environment variables in the browser build (VITE_API_KEY). Fallback to import.meta.env.API_KEY if present.
-const apiKey = (import.meta.env.VITE_API_KEY as string) || (import.meta.env.API_KEY as string) || '';
+// Use Vite environment variables in the browser build (VITE_API_KEY).
+const meta: any = import.meta;
+const apiKey = (meta.env?.VITE_API_KEY as string) || (meta.env?.API_KEY as string) || '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const getAIResponse = async (userPrompt: string, history: { role: string, parts: { text: string }[] }[]): Promise<string> => {

@@ -42,7 +42,8 @@ const AIAgent: React.FC = () => {
 
     const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: MessageRole.USER, content: userMessage }]);
+    const userMsg: ChatMessage = { role: MessageRole.USER, content: userMessage };
+    setMessages(prev => [...prev, userMsg]);
     setIsLoading(true);
 
     const history = messages.map(m => ({
@@ -51,7 +52,8 @@ const AIAgent: React.FC = () => {
     }));
 
     const response = await getAIResponse(userMessage, history);
-    setMessages(prev => [...prev, { role: MessageRole.AI, content: String(response) }]);
+    const aiMsg: ChatMessage = { role: MessageRole.AI, content: String(response ?? '') };
+    setMessages(prev => [...prev, aiMsg]);
     setIsLoading(false);
   };
 

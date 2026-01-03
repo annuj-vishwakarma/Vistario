@@ -1,10 +1,12 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import process from 'node:process';
+
+// Avoid importing 'node:process' which may not have type declarations in this environment
+declare const process: any;
 
 export default defineConfig(({ mode }) => {
-  // Use the imported process.cwd() to resolve the current directory for loadEnv
-  const env = loadEnv(mode, process.cwd(), '');
+  // Resolve the current working directory and load env variables
+  const env = loadEnv(mode, typeof process !== 'undefined' && process.cwd ? process.cwd() : '.', '');
   return {
     plugins: [react()],
     define: {

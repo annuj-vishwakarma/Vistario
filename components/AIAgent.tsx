@@ -51,7 +51,7 @@ const AIAgent: React.FC = () => {
     }));
 
     const response = await getAIResponse(userMessage, history);
-    setMessages(prev => [...prev, { role: MessageRole.AI, content: response }]);
+    setMessages(prev => [...prev, { role: MessageRole.AI, content: String(response) }]);
     setIsLoading(false);
   };
 
